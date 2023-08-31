@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blogging App</title>
+    <!-- custom css link -->
+    <link rel="stylesheet" href="style.css">
+    <!-- bootstrap link -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <!-- font owesome link -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+        integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+</head>
+
+<body>
+
+    <!-- Navbar code start -->
+    <nav class="nav-container navbar navbar-expand-lg bg-primary">
+        <div class="container">
+            <div>
+                <a class="appname" href="index.html">Personal Blogging App</a>
+            </div>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02"
+                aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+
+                    <li class=" mx-1 mx-sm-2">
+                        <button id="nav_signUp" class="" type="submit">SignUp</button>
+                    </li>
+                    <li class=" mx-1 mx-sm-2">
+                        <button id="nav_login" class="" type="submit">Login</button>
+                    </li>
+                    <li class=" mx-1 mx-sm-2">
+                        <button class="" id="all_blogs" type="submit">All Blogs</button>
+                    </li>
+                    <li class=" mx-1 mx-sm-2">
+                        <div id="currentUserName"></div>
+                    </li>
+                    <li class=" mx-1 mx-sm-2">
+                        <button id="logout" class="" type="submit">Logout</button>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- Navbar code End -->
+
+    <!------------------------------ Register form start -------------------->
+    <div style="display: none;" id="signup_page" class="signup_page">
+        <div class="signup_heading">
+            <div class="container">
+                <h2 class="fw-bold">Signup</h2>
+            </div>
+        </div>
+        <div class="signup_form_div">
+            <h3 class="text-center fw-bold"><u class="text-primary">Signup</u></h3>
+            <div class="signup_form" id="signup_form">
+                <div class="p-2">
+                    <input type="text" id="first_name" class="form-control" placeholder="First Name" name="first_name"
+                        minlength="3" maxlength="20" required>
+                </div>
+                <div class="p-2">
+                    <input type="text" id="last_name" class="form-control" placeholder="Last Name" name="last_name"
+                        required minlength="1" maxlength="20">
+                </div>
+                <div class="p-2">
+                    <input type="email" id="signup_email" class="form-control" placeholder="Email" name="email"
+                        required>
+
+                </div>
+                <div class="p-2">
+                    <input type="password" id="signup_password" class="form-control" placeholder="Password"
+                        name="password" required minlength="8">
+                </div>
+                <div class="p-2">
+                    <input type="password" id="repeat_password" class="form-control" placeholder="Repeat Password"
+                        name="repeat_password" required>
+                </div>
+                <div class="p-2">
+                    <input type="file" id="flieInput" class="form-control" name="file" required>
+                </div>
+                <div class="text-center pt-3">
+                    <button class="btn btn-primary w-25" id="signup_btn" type="submit">Sign Up</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!----------------------------- Register form end ------------------------->
+
+    <!---------------------------- login form start -------------------------->
+
+    <div style="display: none;" id="login_page" class="login_page">
+        <div class="login_heading">
+            <div class="container">
+                <h2 class="fw-bold">Login</h2>
+            </div>
+        </div>
+        <div class="login_form_div">
+            <h3 class="text-center fw-bold"><u class="text-primary">Signup</u></h3>
+            <div class="login_form" id="login_form">
+                <div class="p-2">
+                    <input type="email" class="form-control p-2" placeholder="Email" id="login_email" name="email"
+                        required>
+                </div>
+                <div class="p-2">
+                    <input type="password" class="form-control p-2" placeholder="Password" id="login_password"
+                        name="password" required>
+                </div>
+                <div class="text-center pt-3">
+                    <button id="login_btn" class="btn btn-primary w-25" type="submit">Login</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--------------------------------- login form end ------------------------------>
+
+    <!---------------------------- profile form start -------------------------->
+
+    <div style="display: none;" id="profile_page" class="profile_page">
+        <div class="profile_heading">
+            <div class="container">
+                <h2 class="fw-bold">Profile</h2>
+            </div>
+        </div>
+        <div class="profile_page_div">
+            <div class="profile_form" id="profile_form">
+                <div class="text-center p-2">
+                    <img id="profile_img" src="acc.jpg" height="150px" width="150px" class="rounded" alt="">
+                   <br><br> <!-- <input type="file"> -->
+                </div>
+                <div>
+                    <label>Name:</label>
+                    <span class="p-2" id="userName"></span>
+                    <hr>
+                    <label>Email:</label>
+                    <span class="p-2" id="userEmail"></span>
+                    <hr>
+                </div>
+                <div class="text-center pt-3">
+                    <button id="" class="btn btn-primary" type="submit">Update Profile</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--------------------------------- profile form end ------------------------------>
+
+
+    <!---------------------------- Dashboard start -------------------------->
+
+    <div id="dashBoard" class="dashBoard">
+        <div class="dashboard_heading">
+            <div class="container">
+                <h2 class="fw-bold">Dashboard</h2>
+            </div>
+        </div>
+        <div class="mt-4 container main_dashBoard">
+            <form id="dashBoard_form">
+                <div class="p-2 pt-0">
+                    <input type="text" class="form-control p-3" placeholder="Placeholder" id="dashboard_input"
+                        name="text" minlength="5" maxlength="50" required>
+                    <!-- <div id="titleChCount" class="form-text">0/50</div> -->
+                </div>
+                <div class="p-2">
+                    <textarea name="" id="dashboard_textarea" placeholder="What is in your mind" class="form-control"
+                        style="min-height: 200px; max-height: 500px;" name="textarea" minlength="100" maxlength="3000"
+                        required>
+                    </textarea>
+                    <!-- <div id="ContentChCount" class="form-text">0/3000</div> -->
+                </div>
+                <div class="mx-2 pt-3">
+                    <button class="btn btn-primary" id="publish_btn" type="submit">Publish Blog</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!---------------------------------  Dashboard end ------------------------------>
+
+
+    <!-- Update Blog Popup -->
+    <div class="container">
+
+        <form style="display: none;" id="UpdateBlogForm" class="UpdateBlogForm container">
+            <h4 class="fw-blod container">Update Blog</h4>
+            <div class="p-2 pt-0">
+                <input type="text" value="" id="updateInput" class="form-control p-3" name="text" minlength="5"
+                    maxlength="50" required>
+            </div>
+            <div class="p-2">
+                <textarea id="updateTextarea" class="form-control" rows="8" cols="100" name="textarea" minlength="100"
+                    maxlength="3000" required>
+        </textarea>
+            </div>
+            <div class="mx-2 pt-3">
+                <button class="btn btn-primary" id="updateBlogBtn" type="submit">Update Blog</button>
+                &nbsp;
+                &nbsp;
+                &nbsp;
+                <button class="btn btn-danger" id="cencelBlogBtn" type="submit">Cencel</button>
+            </div>
+        </form>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div id="currentUserblogs_container" class="currentUserblogs_container">
+        <div class="container my_blogs_container ">
+            <h2 class="fw-bold mt-5">My Blogs</h2>
+        </div>
+        <div id="currentUserblogs">
+        </div>
+    </div>
+
+
+
+    <div style="display: none;" id="allUserblogs_container" class="allUserblogs_container">
+        <div class="all_blogs_heading">
+            <div class="container">
+                <h1 style="font-style: oblique;" class="fw-bold">Good Morning Readers!</h1>
+            </div>
+        </div>
+        <br>
+        <div class="container ">
+            <h2 class="fw-bold">All Blogs</h2>
+        </div>
+        <div id="allUserblogs">
+
+        </div>
+    </div>
+
+    <div style="display: none;" id="seeMoreAllBlogsOneUserpage" class="seeMoreAllBlogsOneUserpage">
+        <div class="heading_back_to_all_blogs">
+            <div class="container">
+                <h1 class="fw-bold fst-italic" id="back_to_all_blogs">Back to all Blogs</h1>
+            </div>
+        </div>
+        <br>
+        <div class="container ">
+            <h2 class="container fst-italic fw-bold">All Blogs From <span id="blogerName"></span></h2>
+        </div>
+
+        <div class="seeMoreAllBlogs_main_container container">
+            <div class="" id="seeMoreAllBlogs_container">...Blog loading</div>
+            <div class="seeMoreAllBlogsUserImage">
+                <div id="seeMoreUserEmail">Email:</div>
+                <br>
+                <img id="seeMoreUserImage" class="img" src="acc.jpg" height="100px" width="100px" alt="">
+            </div>
+        </div>
+    </div>
+
+
+
+    <script type="module" src="app.js"></script>
+    <!-- sweetalert cdn -->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <!-- bootstrap link -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

@@ -1,0 +1,176 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700,800,900');
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+}
+
+body {
+    position: relative;
+    background-color: whitesmoke;
+    font-family: 'Poppins', sans-serif;
+}
+
+
+/* navbar code start */
+
+.appname {
+    color: #fff;
+    font-size: 22px;
+    text-decoration: none;
+    font-weight: bold;
+    letter-spacing: 1px;
+    font-family: 'Poppins', sans-serif;
+}
+
+
+.appname:hover {
+    color: #fff;
+    font-size: 22px;
+    text-decoration: none;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+
+
+#nav_login,
+#nav_signUp,
+#logout,
+#all_blogs,
+#currentUserName {
+    border: none;
+    color: #fff;
+    background-color: transparent;
+    padding: 4px 5px;
+    border-radius: 4px;
+    font-size: 16px;
+    letter-spacing: 0.5px;
+    font-weight: 600;
+    font-family: 'Poppins', sans-serif;
+    cursor: pointer;
+}
+
+
+.navbar-toggler {
+    color: #fff;
+}
+
+
+/* navbar code end */
+
+.signup_heading,
+.login_heading,
+.dashboard_heading,
+.all_blogs_heading,
+.profile_heading,
+.heading_back_to_all_blogs {
+    background-color: #fff;
+    padding: 10px;
+    font-weight: bold;
+    box-shadow: 1px 1px 8px 4px #ccc;
+    cursor: pointer;
+}
+
+.signup_form,
+.login_form,
+.profile_form {
+    width: 350px;
+}
+
+.signup_form_div,
+.login_form_div,
+.profile_page_div {
+    position: absolute;
+    left: 33%;
+    padding: 40px 30px;
+    background-color: #fff;
+    box-shadow: 0px 0px 8px 8px #ccc;
+    margin-top: 80px;
+}
+
+
+/* Dashboard */
+
+.main_dashBoard {
+    background-color: #fff;
+    padding: 50px;
+    padding-bottom: 30px;
+    margin: 50px;
+    box-shadow: 0px 0px 8px 5px #ccc;
+    border-radius: 4px;
+}
+
+.card {
+    background-color: #fff;
+    margin: 30px;
+    box-shadow: 0px 0px 8px 5px #ccc;
+    border-radius: 8px;
+}
+
+.card img, .img{
+    height: 100px;
+    width: 100px;
+    border-radius: 20%;
+}
+
+.main_dashBoard,
+.my_blogs_container {
+    margin: 8px;
+}
+
+.deleteBtn,
+.editBtn,
+.see_more {
+    cursor: pointer;
+}
+
+
+.UpdateBlogForm {
+    background-color: #fff;
+    padding: 50px;
+    margin: 50px;
+    margin-bottom: 10px;
+    box-shadow: 0px 0px 8px 8px #ccc;
+    border-radius: 4px;
+    z-index: 1000;
+    position: fixed;
+    top: 100px;
+}
+
+.seeMoreAllBlogs_main_container{
+    display: flex;
+    justify-content: space-between !important;
+
+}
+#seeMoreAllBlogs_container{
+    width: 70%;
+}
+
+.seeMoreAllBlogsUserImage{
+    box-shadow: 0px 0px 8px 8px #ccc;
+    background-color: #fff;
+    border-radius: 20px;
+    padding: 30px;
+    height: min-content;
+    /* width: 230px; */
+}
+
+#updateInput::placeholder{
+    margin: 0px;
+}
+
+
+@media (max-width: 550px) {
+    .appname {
+        font-size: 18px;
+    }
+
+    .signup_form,
+    .login_form {
+        position: absolute;
+        top: 30%;
+        left: 5%;
+    }
+}
