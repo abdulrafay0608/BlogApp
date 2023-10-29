@@ -81,7 +81,7 @@ const seeMoreUserImage = document.getElementById("seeMoreUserImage")
 
 
 
-currentUserName.addEventListener('click' ,()=>{
+currentUserName.addEventListener('click', () => {
     loginPage.style.display = "none"
     signupPage.style.display = "none"
     navLogin.style.display = "none"
@@ -107,6 +107,8 @@ navSignUp.addEventListener('click', () => {
     currentUserblogs_container.style.display = "none"
     allUserblogs_container.style.display = "none"
     allBlogsBtn.style.display = "none"
+    profile_page.style.display = "none"
+
 })
 navLogin.addEventListener('click', () => {
     loginPage.style.display = "block"
@@ -119,6 +121,7 @@ navLogin.addEventListener('click', () => {
     currentUserblogs.style.display = "none"
     currentUserblogs_container.style.display = "none"
     allUserblogs_container.style.display = "none"
+    profile_page.style.display = "none"
 })
 cencelBlogBtn.addEventListener('click', () => {
     UpdateBlogForm.style.display = "none"
@@ -147,6 +150,7 @@ onAuthStateChanged(auth, async (user) => {
         logout.style.display = "block"
         dashBoard.style.display = "block"
         allBlogsBtn.style.display = "block"
+        profile_page.style.display = "none"
         currentUserName.style.display = "block"
         currentUserblogs_container.style.display = "block"
         allUserblogs_container.style.display = "none"
@@ -165,6 +169,7 @@ onAuthStateChanged(auth, async (user) => {
         logout.style.display = "none"
         navSignUp.style.display = "none"
         navLogin.style.display = "block"
+        // profile_page.style.display = "block"
         dashBoard.style.display = "none"
         currentUserName.style.display = "none"
         currentUserblogs_container.style.display = "none"
@@ -181,6 +186,8 @@ dashBoardForm.addEventListener('submit', async (e) => {
     e.preventDefault()
     const dashboardInput = document.getElementById("dashboard_input")
     const dashboardTextarea = document.getElementById("dashboard_textarea")
+    console.log("dashboardInput.value", dashboardInput.value);
+    console.log("dashboardTextarea.value", dashboardTextarea.value);
     if (dashboardInput.value !== "" && dashboardTextarea.value !== "") {
         const userInfo = await getUserInfo(auth.currentUser.uid)
         const blogObj = {
@@ -210,14 +217,15 @@ async function getCurrentUserBlogs() {
     const querySnapshot = await getDocs(q);
     currentUserblogs.innerHTML = null
     const userInfo = await getUserInfo(auth.currentUser.uid)
-    console.log(userInfo);
+    // console.log("userInfo.image" , userInfo.image);
     querySnapshot.forEach((data) => {
         const blogInfo = data.data()
-        const { title, currentTime, userName, description } = blogInfo
+        // console.log("blogInfo.image ", blogInfo.image);
+        const { title, image, currentTime, userName, description } = blogInfo
         const card = `<div class="container  card">
         <div class="d-flex align-items-center  p-2">
             <div>
-                <img src="${userInfo.image}"/>
+                <img src="${image}"/>
             </div>
             <div class="card-title card-userInfo m-4 ">
                 <div>
@@ -288,11 +296,12 @@ async function editBlogFunc(e) {
 async function getAllUserBlogs() {
     const querySnapshot = await getDocs(query(collection(db, "blog_post")), orderBy("currentTime", "desc"));
     allUserblogs.innerHTML = null
-    // const userInfo = await getUserInfo(auth.currentUser.uid)
-
+    const userInfo = await getUserInfo(auth.currentUser.uid)
     querySnapshot.forEach((data) => {
+        // const userInfo = await getUserInfo(uid)
         const blogInfo = data.data()
-        console.log(blogInfo.image);
+
+        console.log("blogInfo.image", blogInfo);
         const { title, image, currentTime, userName, description
         } = blogInfo
         const card = `<div class="container  card" >
@@ -326,7 +335,7 @@ async function getAllUserBlogs() {
                 allUserblogs_container.style.display = "none"
                 allBlogsBtn.style.display = "block"
                 seeMoreAllBlogsOneUserpage.style.display = "block"
-                seeMoreAllBlogsOneUser(seeMore.id, blogInfo.userName, blogInfo.Email ,blogInfo.image)
+                seeMoreAllBlogsOneUser(seeMore.id, blogInfo.userName, blogInfo.Email, blogInfo.image)
 
             })
         }, 100);
@@ -335,7 +344,7 @@ async function getAllUserBlogs() {
 
 
 
-async function seeMoreAllBlogsOneUser(id, name, email ,image) {
+async function seeMoreAllBlogsOneUser(id, name, email, image) {
     const q = query(collection(db, "blog_post"), where("userUid", "==", id));
     console.log("q==>", q);
     seeMoreUserEmail.innerHTML = email
@@ -381,17 +390,17 @@ flieInput.addEventListener('change', (e) => {
     console.log(e.target.files[0]);
     const imgRef = ref(storage, 'user-image' + e.target.files[0]);
     console.log(imgRef);
-    uploadBytes(imgRef, e.target.files[0]   )
+    uploadBytes(imgRef, e.target.files[0])
         .then((snapshot) => {
             console.log(snapshot);
             getDownloadURL(imgRef)
-            .then(url => {
-            console.log("url==>" , url );
-            // const image = document.getElementById("image")
-            // image.src = url
-            user_img_url = url
-            })
-            .catch(err => console.error(err))
+                .then(url => {
+                    console.log("url==>", url);
+                    // const image = document.getElementById("image")
+                    // image.src = url
+                    user_img_url = url
+                })
+                .catch(err => console.error(err))
             // console.log('Uploaded a blob or file!');
         });
 

@@ -4,6 +4,7 @@
     margin: 0;
     padding: 0;
     font-family: sans-serif;
+    box-sizing: border-box;
 }
 
 body {
@@ -67,8 +68,9 @@ body {
 .profile_heading,
 .heading_back_to_all_blogs {
     background-color: #fff;
-    padding: 10px;
+    padding: 10px;  
     font-weight: bold;
+    /* width: 100%; */
     box-shadow: 1px 1px 8px 4px #ccc;
     cursor: pointer;
 }
@@ -76,18 +78,22 @@ body {
 .signup_form,
 .login_form,
 .profile_form {
-    width: 350px;
+    /* width: 350px; */
 }
 
 .signup_form_div,
 .login_form_div,
 .profile_page_div {
-    position: absolute;
-    left: 33%;
     padding: 40px 30px;
     background-color: #fff;
     box-shadow: 0px 0px 8px 8px #ccc;
     margin-top: 80px;
+}
+
+.responsive {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 
@@ -109,7 +115,8 @@ body {
     border-radius: 8px;
 }
 
-.card img, .img{
+.card img,
+.img {
     height: 100px;
     width: 100px;
     border-radius: 20%;
@@ -139,16 +146,17 @@ body {
     top: 100px;
 }
 
-.seeMoreAllBlogs_main_container{
+.seeMoreAllBlogs_main_container {
     display: flex;
     justify-content: space-between !important;
 
 }
-#seeMoreAllBlogs_container{
+
+#seeMoreAllBlogs_container {
     width: 70%;
 }
 
-.seeMoreAllBlogsUserImage{
+.seeMoreAllBlogsUserImage {
     box-shadow: 0px 0px 8px 8px #ccc;
     background-color: #fff;
     border-radius: 20px;
@@ -157,20 +165,28 @@ body {
     /* width: 230px; */
 }
 
-#updateInput::placeholder{
+#updateInput::placeholder {
     margin: 0px;
 }
 
 
-@media (max-width: 550px) {
+
+@media (max-width: 660px) {
+    .seeMoreAllBlogs_main_container {
+        display: block;
+    }
+
+    #seeMoreAllBlogs_container {
+        width: 100%;
+    }
     .appname {
         font-size: 18px;
     }
 
+    
     .signup_form,
-    .login_form {
-        position: absolute;
-        top: 30%;
-        left: 5%;
+    .login_form,
+    .profile_form {
+        max-width: 280px;
     }
 }
