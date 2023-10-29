@@ -78,7 +78,7 @@ body {
 .signup_form,
 .login_form,
 .profile_form {
-    /* width: 350px; */
+    width: 350px;
 }
 
 .signup_form_div,
