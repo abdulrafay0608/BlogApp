@@ -75,11 +75,6 @@ const profile_img = document.getElementById("profile_img")
 const profile_page = document.getElementById("profile_page")
 const seeMoreUserImage = document.getElementById("seeMoreUserImage")
 
-// console.log(imageSubmit);
-
-
-
-
 
 currentUserName.addEventListener('click', () => {
     loginPage.style.display = "none"
@@ -217,10 +212,8 @@ async function getCurrentUserBlogs() {
     const querySnapshot = await getDocs(q);
     currentUserblogs.innerHTML = null
     const userInfo = await getUserInfo(auth.currentUser.uid)
-    // console.log("userInfo.image" , userInfo.image);
     querySnapshot.forEach((data) => {
         const blogInfo = data.data()
-        // console.log("blogInfo.image ", blogInfo.image);
         const { title, image, currentTime, userName, description } = blogInfo
         const card = `<div class="container  card">
         <div class="d-flex align-items-center  p-2">
@@ -229,18 +222,18 @@ async function getCurrentUserBlogs() {
             </div>
             <div class="card-title card-userInfo m-4 ">
                 <div>
-                    <h3 class="fs-2 fw-bold">${title}</h3>
+                    <h3 class="blog_heading">${title}</h3>
                 </div>
                 <div class="card-title">
-                    <span class="fs-5 fw-bold">${userName} - </span>
-                    <span class="fs-5">${currentTime}</span>
+                    <span class="blog_name">${userName} - </span>
+                    <span class="blog_name">${currentTime}</span>
                 </div>  
             </div>
         </div> 
         <div class="card-body">${description} </div>
         <div class="container pb-4">
-            <button id=${data.id + "del"} class="btn text-primary fs-5 mx-2 deleteBtn"> Delete </button>
-            <button id=${data.id + "edit"} class="btn text-primary fs-5 mx-5 editBtn"> Edit </button>
+            <button id=${data.id + "del"} class="btn btn-danger fs-6 mx-2 deleteBtn"> Delete </button>
+            <button id=${data.id + "edit"} class="btn btn-success fs-6 mx- editBtn"> Edit </button>
         </div>
       </div>`
         currentUserblogs.innerHTML += card
@@ -296,39 +289,31 @@ async function editBlogFunc(e) {
 async function getAllUserBlogs() {
     const querySnapshot = await getDocs(query(collection(db, "blog_post")), orderBy("currentTime", "desc"));
     allUserblogs.innerHTML = null
-    const userInfo = await getUserInfo(auth.currentUser.uid)
     querySnapshot.forEach((data) => {
-        // const userInfo = await getUserInfo(uid)
         const blogInfo = data.data()
-
-        console.log("blogInfo.image", blogInfo);
-        const { title, image, currentTime, userName, description
-        } = blogInfo
+        const { title, image, currentTime, userName, description } = blogInfo
         const card = `<div class="container  card" >
-        <div class="d-flex align-items-center  p-2">
+        <div class="card_container p-2">
             <div>
                 <img src="${image}"/>
             </div>
             <div class="card-title card-userInfo m-4 ">
-                <h3 class="fs-2 fw-bold">${title}</h3>
+                <h3 class="blog_heading">${title}</h3>
                 <div class="card-title">
-                    <span class="fs-5 fw-bold">${userName} - </span>
-                    <span class="fs-5">${currentTime}</span>
+                    <span class="blog_name">${userName} - </span>
+                    <span class="blog_name">${currentTime}</span>
                 </div>  
             </div>
         </div> 
         <div class="card-body">${description} </div>
         <div class="container pb-4">
-            <p id=${blogInfo.userUid} class="text-primary mx-3 see_more">
-            See more from this user
-            </p>
+            <p id=${blogInfo.userUid} class="text-success fw-bold see_more">See more from this user</p>
         </div>
         </div>`
         allUserblogs.innerHTML += card
         setTimeout(() => {
             const seeMore = document.getElementById(blogInfo.userUid)
             seeMore.addEventListener('click', () => {
-                // console.log(seeMore.id);
                 dashBoard.style.display = "none"
                 currentUserblogs.style.display = "none"
                 currentUserblogs_container.style.display = "none"
@@ -336,7 +321,6 @@ async function getAllUserBlogs() {
                 allBlogsBtn.style.display = "block"
                 seeMoreAllBlogsOneUserpage.style.display = "block"
                 seeMoreAllBlogsOneUser(seeMore.id, blogInfo.userName, blogInfo.Email, blogInfo.image)
-
             })
         }, 100);
     });
@@ -346,28 +330,22 @@ async function getAllUserBlogs() {
 
 async function seeMoreAllBlogsOneUser(id, name, email, image) {
     const q = query(collection(db, "blog_post"), where("userUid", "==", id));
-    console.log("q==>", q);
-    seeMoreUserEmail.innerHTML = email
-    blogerName.innerHTML = name;
-    seeMoreUserImage.src = image
+    blogerName.innerText = name;
     const querySnapshot = await getDocs(q);
     seeMoreAllBlogs_container.innerHTML = null
     querySnapshot.forEach((data) => {
-        console.log(data.id, " => ", data.data());
         const blogInfo = data.data()
-
-        const { title, image, currentTime, userName, description
-        } = blogInfo
-        const card = `<div class="container  card" >
-            <div class="d-flex align-items-center  p-2">
+        const { title, image, currentTime, userName, description } = blogInfo
+        const card = `<div class="container card" >
+            <div class="card_container p-2">
                 <div>
                     <img src="${image}"/>
                 </div>
                 <div class="card-title card-userInfo m-4 ">
-                    <h3 class="fs-2 fw-bold">${title}</h3>
+                    <h3 class="blog_heading">${title}</h3>
                     <div class="card-title">
-                        <span class="fs-5 fw-bold">${userName} - </span>
-                        <span class=""fs-5>${currentTime}</span>
+                        <span class="blog_name">${userName} - </span>
+                        <span class="blog_name">${currentTime}</span>
                     </div>  
                 </div>
             </div> 
@@ -383,12 +361,11 @@ async function seeMoreAllBlogsOneUser(id, name, email, image) {
 
 
 let user_img_url = null
-console.log(user_img_url);
 
 flieInput.addEventListener('change', (e) => {
     console.log(flieInput);
     console.log(e.target.files[0]);
-    const imgRef = ref(storage, 'user-image' + e.target.files[0]);
+    const imgRef = ref(storage, 'user-image' + e.target.files[0].name);
     console.log(imgRef);
     uploadBytes(imgRef, e.target.files[0])
         .then((snapshot) => {
@@ -396,18 +373,13 @@ flieInput.addEventListener('change', (e) => {
             getDownloadURL(imgRef)
                 .then(url => {
                     console.log("url==>", url);
-                    // const image = document.getElementById("image")
-                    // image.src = url
                     user_img_url = url
                 })
                 .catch(err => console.error(err))
-            // console.log('Uploaded a blob or file!');
         });
 
 })
 
-// let user_img_url = url
-// console.log(user_img_url);
 
 async function getUserInfo(uid) {
     const userRef = doc(db, "users", uid)
@@ -420,8 +392,6 @@ async function getUserInfo(uid) {
     }
     return userinfo
 }
-
-
 
 
 
